@@ -145,14 +145,12 @@ class _EnrollmentCaptureScreenState extends State<EnrollmentCaptureScreen>
         firstCamera = cameras.first;
         _cameraIndex = 0;
       }
-      final controller = CameraController(firstCamera!, ResolutionPreset.medium,
+     _cameraController = CameraController(firstCamera!, ResolutionPreset.high,
           enableAudio: false);
-
-      await controller.initialize();
+      _initializeControllerFuture = _cameraController!.initialize();
 
       if (mounted) {
         setState(() {
-          _cameraController = controller;
           _isCameraReady = true;
         });
       }
@@ -339,7 +337,7 @@ class _EnrollmentCaptureScreenState extends State<EnrollmentCaptureScreen>
       await _initializeControllerFuture;
       imageFile = await _cameraController!.takePicture();
 
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => EnrollmentPreview(
             imagePath: imageFile!.path,

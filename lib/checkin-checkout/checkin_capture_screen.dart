@@ -38,7 +38,7 @@ class _CheckInCaptureState extends State<CheckInCapture>
   double locationDistance = 0.0;
   bool inCameraPreview = true;
   CameraController? _cameraController;
-  // Future<void>? _initializeControllerFuture;
+  Future<void>? _initializeControllerFuture;
   CameraDescription? firstCamera;
   int _cameraIndex = 0;
   bool _regDeficeInfoPassed = false;
@@ -142,14 +142,12 @@ class _CheckInCaptureState extends State<CheckInCapture>
         firstCamera = cameras.first;
         _cameraIndex = 0;
       }
-      final controller = CameraController(firstCamera!, ResolutionPreset.medium,
+      _cameraController = CameraController(firstCamera!, ResolutionPreset.high,
           enableAudio: false);
-
-      await controller.initialize();
+      _initializeControllerFuture = _cameraController!.initialize();
 
       if (mounted) {
         setState(() {
-          _cameraController = controller;
           _isCameraReady = true;
         });
       }
@@ -304,10 +302,10 @@ class _CheckInCaptureState extends State<CheckInCapture>
 
   saveImage() async {
     try {
-      // await _initializeControllerFuture;
+      await _initializeControllerFuture;
       imageFile = await _cameraController!.takePicture();
 
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => CheckinPreviewScreen(
             imagePath: imageFile!.path,
