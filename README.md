@@ -1,1 +1,3 @@
-# iCheck_android
+# iCheck_android - Flutter App
+
+iCheck is an AI driven facial recognition attendance management system. The purpose of the application is to provide a mobile platform for employers to monitor employees and for employees to record their check-in and check-out times. It can be used as a monitoring system for employers to view and check on employee log times and similarly it can be used for employees to record their work times. iCheck also allows employees to record their annual leave. iCheck mainly targets large corporates that have an abundance of employees to manage. By using the application, the employer can monitor the workforce.
